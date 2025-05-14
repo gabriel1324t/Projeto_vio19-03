@@ -78,7 +78,7 @@ function ListEvento() {
             <DeleteIcon color="error" />
           </IconButton>
         </TableCell>
-        <TableCell align="center"> //
+        <TableCell align="center"> 
           <IconButton onClick={() => abrirModalIngresso(evento)}>
             +
           </IconButton>
