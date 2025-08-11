@@ -14,8 +14,7 @@ import { Button, IconButton, Alert, Snackbar } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link, useNavigate } from "react-router-dom";
-import ModalCriarIngresso from "../components/ModalCriarIngresso"; //
-
+import ModalCriarIngresso from "../components/ModalCriarIngresso";
 
 function ListEvento() {
   const [events, setEvento] = useState([]);
@@ -73,12 +72,19 @@ function ListEvento() {
         <TableCell align="center">{evento.descricao}</TableCell>
         <TableCell align="center">{evento.data_hora}</TableCell>
         <TableCell align="center">{evento.local}</TableCell>
-        <TableCell align="center">
+       <TableCell align="center">{evento.fk_id_organizador}</TableCell>
+        <TableCell>
+          <img src={`http://localhost:5000/api/v1/evento/imagem/${evento.id_evento}`}
+          alt="Imagem do evento"
+          style={{widht:"80px", height: "80px", objectFit:"cover"}}
+          />
+        </TableCell>
+         <TableCell align="center">
           <IconButton onClick={() => deleteEvento(evento.id_evento)}>
             <DeleteIcon color="error" />
           </IconButton>
         </TableCell>
-        <TableCell align="center"> 
+        <TableCell align="center">
           <IconButton onClick={() => abrirModalIngresso(evento)}>
             +
           </IconButton>
@@ -102,7 +108,7 @@ function ListEvento() {
   const [eventoSelecionado, setEventoSelecionado] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
-  const abrirModalIngresso = (evento) => { //capta tudo que esta no evento e manda para o modal
+  const abrirModalIngresso = (evento) => {
     setEventoSelecionado(evento);
     setModalOpen(true);
   };
@@ -129,9 +135,9 @@ function ListEvento() {
         </Alert>
       </Snackbar>
 
-      <ModalCriarIngresso //Nome tecnico PROPS //
-        open={modalOpen} //abriu modal
-        onClose={fecharModalIngresso} //fechou modal
+      <ModalCriarIngresso
+        open={modalOpen}
+        onClose={fecharModalIngresso}
         eventoSelecionado={eventoSelecionado}
       />
 
@@ -151,6 +157,8 @@ function ListEvento() {
                   <TableCell align="center">Descrição</TableCell>
                   <TableCell align="center">Data e hora</TableCell>
                   <TableCell align="center">Local</TableCell>
+                    <TableCell align="center">id organizador</TableCell>
+                  <TableCell alingh="center">Imagem</TableCell>
                   <TableCell align="center">Excluir</TableCell>
                   <TableCell align="center">Criar Ingresso</TableCell>
                 </TableRow>
